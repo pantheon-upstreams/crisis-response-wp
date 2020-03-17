@@ -1,0 +1,7 @@
+.wb-breaking-news-ticker .bn-controls button{
+	padding: 0;
+}
+
+.wb-breaking-news-ticker .bn-news li a{
+	text-decoration: none;
+}
