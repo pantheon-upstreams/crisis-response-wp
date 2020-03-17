@@ -1,0 +1,9 @@
+name: crisis-response
+recipe: pantheon
+config:
+  framework: wordpress
+  webroot: .
+  xdebug: false
+  index: false
+  edge: false
+  cache: true
