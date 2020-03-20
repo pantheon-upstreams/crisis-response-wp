@@ -56,3 +56,8 @@ Thumbs.db
 # SASS #
 ##########
 .sass-cache
+
+# Local dev #
+#############
+.idea
+.vscode
