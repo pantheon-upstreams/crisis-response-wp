@@ -17831,6 +17831,7 @@
          * @return bool
          */
         function is_pricing_page_visible() {
+            return false;
             return (
                 // Has at least one paid plan.
                 $this->has_paid_plan() &&
