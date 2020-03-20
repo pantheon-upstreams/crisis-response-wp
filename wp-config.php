@@ -147,6 +147,9 @@ if ( ! defined( 'WP_DEBUG' ) ) {
     define('WP_DEBUG', false);
 }
 
+/** Changes location where Autoptimize stores optimized files */
+define('AUTOPTIMIZE_CACHE_CHILD_DIR','/uploads/autoptimize/');
+
 /* That's all, stop editing! Happy Pressing. */
 
 
