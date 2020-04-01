@@ -5,28 +5,12 @@ print( "\n==== WP Reset Starting ====\n" );
 // Get paths for imports
 $path  = $_SERVER['DOCUMENT_ROOT'] . '/private/data';
 
-echo "\n========= START SERVER ===========\n";
-print_r($_SERVER);
-echo "\n========== END SERVER ============\n";
-echo "\n";
-echo "\n========= START ENV ===========\n";
-print_r($_ENV);
-echo "\n========== END ENV ============\n";
-echo "\n";
-echo "\n========= START PAYLOAD ===========\n";
-print_r($_POST);
-echo "\n========== END PAYLOAD ============\n";
-
 // Import database
-echo $path;
 $cmd = "wp db import ${path}/database.sql";
-$results = passthru($cmd);
-
-// Shell text?
-echo($results);
+echo(passthru($cmd));
 
 // Get environment variables, create password.
-$email = $_ENV['user_email'];
+$email = $_POST['user_email'];
 $password = bin2hex(random_bytes(10));
 
 // Update WP admin user
@@ -34,7 +18,7 @@ $cmd = "wp user update 1 --user_email=${email} --user_pass=${password}";
 passthru($cmd);
 
 // Prepare
-$site_id = $_ENV['site_id'];
+$site_id = $_POST['site_id'];
 $subject = "Pantheon Crisis Response Site | Password Reset | [${site_id}]";
 
 $message = "
