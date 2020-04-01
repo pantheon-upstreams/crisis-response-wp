@@ -12,9 +12,3 @@ workflows:
       - type: webphp
         description: Reset WP site to default profile.
         script: private/scripts/reset.php
-  # Commits
-  sync_code:
-    after:
-      - type: webphp
-        description: Debug
-        script: private/scripts/debug.php
