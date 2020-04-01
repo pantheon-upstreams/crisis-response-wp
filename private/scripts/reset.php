@@ -5,6 +5,14 @@ print( "\n==== WP Reset Starting ====\n" );
 // Get paths for imports
 $path  = $_SERVER['DOCUMENT_ROOT'] . '/private/data';
 
+echo "\n========= START SERVER ===========\n";
+print_r($_SERVER);
+echo "\n========== END SERVER ============\n";
+echo "\n";
+echo "\n========= START ENV ===========\n";
+print_r($_ENV);
+echo "\n========== END ENV ============\n";
+
 // Import database
 $cmd = "wp db import ${path}/database.sql";
 exec($cmd);
