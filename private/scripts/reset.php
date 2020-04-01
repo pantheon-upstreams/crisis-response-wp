@@ -47,34 +47,7 @@ $headers .= 'From: <no-reply@pantheon.io>' . "\r\n";
 // Send email
 mail($email,$subject,$message,$headers);
 
-
-/**
-
-
-// Import all config .json files in private/config
-foreach( $files as $file ){
-
-	$file_parts = pathinfo($file);
-
-	if( $file_parts['extension'] != 'json' ){
-		continue;
-	}
-
-	exec( 'wp config pull ' . $file_parts['filename'] . ' 2>&1', $output );
-
-	if ( count( $output ) > 0 ) {
-		$output = preg_replace( '/\s+/', ' ', array_slice( $output, 1, - 1 ) );
-		$output = str_replace( ' update', ' [update]', $output );
-		$output = str_replace( ' create', ' [create]', $output );
-		$output = str_replace( ' delete', ' [delete]', $output );
-		$output = implode( $output, "\n" );
-		$output = rtrim( $output );
-	}
-}
-
-// Flush the cache
+// Clear cache, because why not.
 exec( 'wp cache flush' );
-
-*/
 
 print( "\n==== WP Reset Complete ====\n" );
