@@ -18,8 +18,12 @@ print_r($_POST);
 echo "\n========== END PAYLOAD ============\n";
 
 // Import database
+echo $path;
 $cmd = "wp db import ${path}/database.sql";
-exec($cmd);
+$results = passthru($cmd);
+
+// Shell text?
+echo($results);
 
 // Get environment variables, create password.
 $email = $_ENV['user_email'];
@@ -27,7 +31,7 @@ $password = bin2hex(random_bytes(10));
 
 // Update WP admin user
 $cmd = "wp user update 1 --user_email=${email} --user_pass=${password}";
-exec($cmd);
+passthru($cmd);
 
 // Prepare
 $site_id = $_ENV['site_id'];
@@ -60,6 +64,6 @@ $headers .= 'From: <no-reply@pantheon.io>' . "\r\n";
 mail($email,$subject,$message,$headers);
 
 // Clear cache, because why not.
-exec( 'wp cache flush' );
+passthru( 'wp cache flush' );
 
 print( "\n==== WP Reset Complete ====\n" );
