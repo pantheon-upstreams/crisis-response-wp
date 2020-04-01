@@ -12,6 +12,10 @@ echo "\n";
 echo "\n========= START ENV ===========\n";
 print_r($_ENV);
 echo "\n========== END ENV ============\n";
+echo "\n";
+echo "\n========= START PAYLOAD ===========\n";
+print_r($_POST);
+echo "\n========== END PAYLOAD ============\n";
 
 // Import database
 $cmd = "wp db import ${path}/database.sql";
