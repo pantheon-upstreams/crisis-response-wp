@@ -10,8 +10,9 @@ $cmd = "wp db import ${path}/database.sql";
 passthru($cmd);
 
 // Import media
-$cmd = "unzip ${path}/uploads.zip 'uploads/*' -d ${path}/wp-content";
-passthru($cmd);
+$files = $_SERVER['HOME'] . '/files';
+$cmd = "unzip ${path}/uploads.zip 'uploads/*' -d ${files}";
+echo(passthru($cmd));
 
 // Regenerate media
 passthru('wp media regenerate --yes');
