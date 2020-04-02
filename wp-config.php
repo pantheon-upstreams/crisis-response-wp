@@ -150,6 +150,11 @@ if ( ! defined( 'WP_DEBUG' ) ) {
 /** Changes location where Autoptimize stores optimized files */
 define('AUTOPTIMIZE_CACHE_CHILD_DIR','/uploads/autoptimize/');
 
+// Update for FTP issue.
+if (isset($_ENV['PANTHEON_ENVIRONMENT'])) {
+  define('FS_METHOD', 'direct');
+}
+
 /* That's all, stop editing! Happy Pressing. */
 
 
