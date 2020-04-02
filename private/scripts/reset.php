@@ -12,7 +12,8 @@ passthru($cmd);
 // Import media
 $files = $_SERVER['HOME'] . '/files';
 $cmd = "unzip ${path}/uploads.zip -d ${files}";
-echo(passthru($cmd));
+echo('Unzipping image files...');
+passthru($cmd);
 
 // Regenerate media
 passthru('wp media regenerate --yes');
