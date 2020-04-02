@@ -147,12 +147,27 @@ if ( ! defined( 'WP_DEBUG' ) ) {
     define('WP_DEBUG', false);
 }
 
-/** Changes location where Autoptimize stores optimized files */
+// Changes location where Autoptimize stores optimized files
+// https://pantheon.io/docs/plugins-known-issues#autoptimize
 define('AUTOPTIMIZE_CACHE_CHILD_DIR','/uploads/autoptimize/');
 
 // Update for FTP issue.
+// https://pantheon.io/docs/plugins-known-issues#define-fs_method
 if (isset($_ENV['PANTHEON_ENVIRONMENT'])) {
   define('FS_METHOD', 'direct');
+}
+
+// Contact Form 7 Fix
+// https://pantheon.io/docs/plugins-known-issues#contact-form-7
+$_SERVER['SERVER_NAME'] = $_SERVER['HTTP_HOST'];
+
+if (isset($_ENV['PANTHEON_ENVIRONMENT'])) {
+  if (isset($_SERVER['HTTP_USER_AGENT_HTTPS']) && $_SERVER['HTTP_USER_AGENT_HTTPS'] === 'ON') {
+    $_SERVER['SERVER_PORT'] = 443;
+  }
+  else {
+    $_SERVER['SERVER_PORT'] = 80;
+  }
 }
 
 /* That's all, stop editing! Happy Pressing. */
