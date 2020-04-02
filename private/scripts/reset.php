@@ -11,7 +11,7 @@ passthru($cmd);
 
 // Import media
 $files = $_SERVER['HOME'] . '/files';
-$cmd = "unzip ${path}/uploads.zip 'uploads/*' -d ${files}";
+$cmd = "unzip ${path}/uploads.zip -d ${files}";
 echo(passthru($cmd));
 
 // Regenerate media
