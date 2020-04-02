@@ -75,7 +75,7 @@ if ( ! function_exists( 'oceanwp_wcmenucart_menu_item' ) ) {
 		}
 
 		// Cart Icon
-		$cart_icon = '<i class="'. esc_attr( $icon ) .'"></i>';
+		$cart_icon = '<i class="'. esc_attr( $icon ) .'" aria-hidden="true"></i>';
 		$cart_icon = apply_filters( 'ocean_menu_cart_icon_html', $cart_icon );
 
 		// If bag style
@@ -113,7 +113,7 @@ if ( ! function_exists( 'oceanwp_woo_placeholder_img' ) ) {
 
 	function oceanwp_woo_placeholder_img() {
 		if ( function_exists( 'wc_placeholder_img_src' ) && wc_placeholder_img_src() ) {
-			$placeholder = '<div class="woo-entry-image clr"><img src="'. wc_placeholder_img_src() .'" alt="'. esc_html__( 'Placeholder Image', 'oceanwp' ) .'" class="woo-entry-image-main" /></div>';
+			$placeholder = '<div class="woo-entry-image clr"><img src="'. wc_placeholder_img_src() .'" alt="'. __( 'Placeholder Image', 'oceanwp' ) .'" class="woo-entry-image-main" /></div>';
 			$placeholder = apply_filters( 'ocean_woo_placeholder_img_html', $placeholder );
 			if ( $placeholder ) {
 				echo wp_kses_post( $placeholder );
@@ -197,4 +197,45 @@ if ( ! function_exists( 'oceanwp_woo_summary_elements_positioning' ) ) {
 
 	}
 
+}
+
+/**
+ * Check if it is a product attribute archive page
+ *
+ * @since 1.8.2
+ */
+function ocean_is_wc_attribute() {
+
+    /**
+     * Attributes are proper taxonomies, therefore first thing is
+     * to check if we are on a taxonomy page using the is_tax().
+     */
+    if ( is_tax() && function_exists( 'taxonomy_is_product_attribute') ) {
+
+        $tax_obj = get_queried_object();
+		return taxonomy_is_product_attribute( $tax_obj->taxonomy );
+    }
+    return false;
+}
+
+/**
+ * Get the custom taxonomies
+ *
+ * @since 1.8.2
+ */
+function get_term_tax_attr() {
+
+	if ( function_exists( 'taxonomy_is_product_attribute') ) {
+		$attr_taxonomies = wc_get_attribute_taxonomies();
+	}
+
+	$taxonomy_terms = array();
+
+	if ( $attr_taxonomies ) {
+		foreach ($attr_taxonomies as $tax) {
+			if (taxonomy_exists(wc_attribute_taxonomy_name($tax->attribute_name))) {
+				$taxonomy_terms[$tax->attribute_name] = get_terms( wc_attribute_taxonomy_name($tax->attribute_name), 'orderby=name&hide_empty=0' );
+			}
+		}
+	}
 }

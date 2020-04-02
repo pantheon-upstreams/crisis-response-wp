@@ -220,7 +220,7 @@ a.sidr-class-toggle-sidr-close {
   height: 100%;
   width: 100%;
   background: rgba(0, 0, 0, 0.3);
-  z-index: 9999;
+  z-index: 99;
 }
 
 /* Search */
@@ -278,5 +278,33 @@ a.sidr-class-toggle-sidr-close {
       display: block;
       padding: 12px 10px;
     }
+  }
+}
+
+.admin-bar {
+  #sidr,
+  .oceanwp-sidr-overlay
+    {
+      top: 32px;
+      height: -webkit-calc(100% - 32px);
+      height: calc(100% - 32px);
+    }
+}
+
+@media screen and (max-width: 782px) {
+  .admin-bar {
+    #sidr,
+    .oceanwp-sidr-overlay
+      {
+        top: 46px;
+        height: -webkit-calc(100% - 46px);
+        height: calc(100% - 46px);
+      }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #wpadminbar {
+   position: fixed;
   }
 }
