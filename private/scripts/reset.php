@@ -9,6 +9,13 @@ $path  = $_SERVER['DOCUMENT_ROOT'] . '/private/data';
 $cmd = "wp db import ${path}/database.sql";
 passthru($cmd);
 
+// Import media
+$cmd = "unzip ${path}/uploads.zip 'uploads/*' -d ${path}/wp-content";
+passthru($cmd);
+
+// Regenerate media
+passthru('wp media regenerate --yes');
+
 // Get environment variables, create password.
 $email = $_POST['user_email'];
 $password = bin2hex(random_bytes(10));
