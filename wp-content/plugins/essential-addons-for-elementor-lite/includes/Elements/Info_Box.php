@@ -7,7 +7,7 @@ if (!defined('ABSPATH')) {
 }
 
 use \Elementor\Controls_Manager;
-use \Elementor\Frontend;
+use \Elementor\Plugin;
 use \Elementor\Group_Control_Border;
 use \Elementor\Group_Control_Box_Shadow;
 use \Elementor\Group_Control_Image_Size;
@@ -1493,37 +1493,6 @@ class Info_Box extends Widget_Base {
 			$this->end_controls_tabs();
 
 		$this->end_controls_section();
-		
-		$this->start_controls_section(
-			'_section_style',
-			[
-				'label' => esc_html__( 'Info Box Advanced', 'essential-addons-for-elementor-lite'),
-				'tab' => Controls_Manager::TAB_ADVANCED,
-				'name' => 'advanced',
-			]
-		);  // \Elementor\Controls_Manager::TAB_ADVANCED
-
-		$this->add_responsive_control(
-			'_margin',
-			[
-				'label' => __( '', 'elementor' ),
-				'name' => '_margin',
-			]
-		);
-
-		$this->add_responsive_control(
-			'eael_infobox_container_padding',
-			[
-				'label' => esc_html__( 'Padding', 'essential-addons-for-elementor-lite'),
-				'type' => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', 'em', '%' ],
-				'selectors' => [
-	 					'{{WRAPPER}} .eael-infobox' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-	 			],
-			]
-		);
-
-		$this->end_controls_section();
 
 	}
 
@@ -1669,10 +1638,7 @@ class Info_Box extends Widget_Base {
 						<?php $this->render_infobox_button($this->get_settings_for_display()); ?>
 					<?php elseif( 'template' === $settings['eael_infobox_text_type'] ) :
 						if ( !empty( $settings['eael_primary_templates'] ) ) {
-							$eael_template_id = $settings['eael_primary_templates'];
-							$eael_frontend = new Frontend;
-
-							echo $eael_frontend->get_builder_content( $eael_template_id, true );
+							echo Plugin::$instance->frontend->get_builder_content($settings['eael_primary_templates'], true);
 						}
 					endif; ?>
 				<?php endif; ?>

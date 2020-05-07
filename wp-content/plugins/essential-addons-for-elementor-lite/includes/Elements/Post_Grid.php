@@ -75,6 +75,139 @@ class Post_Grid extends Widget_Base
          * Grid Style Controls!
          */
         $this->start_controls_section(
+            'section_post_grid_links',
+            [
+                'label' => __('Links', 'essential-addons-for-elementor-lite')
+            ]
+        );
+
+        $this->add_control(
+            'image_link',
+            [
+                'label' => __('Image', 'essential-addons-for-elementor-lite'),
+                'type' => Controls_Manager::HEADING,
+                'condition' => [
+                    'eael_show_image'   => 'yes'
+                ]
+            ]
+        );
+
+        $this->add_control(
+			'image_link_nofollow',
+			[
+				'label' => __( 'No Follow', 'essential-addons-for-elementor-lite' ),
+				'type' => Controls_Manager::SWITCHER,
+				'label_on' => __( 'Yes', 'essential-addons-for-elementor-lite' ),
+				'label_off' => __( 'No', 'essential-addons-for-elementor-lite' ),
+                'return_value' => 'true',
+                'condition' => [
+                    'eael_show_image'   => 'yes'
+                ]
+			]
+        );
+        
+        $this->add_control(
+			'image_link_target_blank',
+			[
+				'label' => __( 'Target Blank', 'essential-addons-for-elementor-lite' ),
+				'type' => Controls_Manager::SWITCHER,
+				'label_on' => __( 'Yes', 'essential-addons-for-elementor-lite' ),
+				'label_off' => __( 'No', 'essential-addons-for-elementor-lite' ),
+                'return_value' => 'true',
+                'condition' => [
+                    'eael_show_image'   => 'yes'
+                ]
+			]
+        );
+
+        $this->add_control(
+            'title_link',
+            [
+                'label' => __('Title', 'essential-addons-for-elementor-lite'),
+                'type' => Controls_Manager::HEADING,
+                'condition' => [
+                    'eael_show_title'   => 'yes'
+                ],
+                'separator' => 'before'
+            ]
+        );
+
+        $this->add_control(
+			'title_link_nofollow',
+			[
+				'label' => __( 'No Follow', 'essential-addons-for-elementor-lite' ),
+				'type' => Controls_Manager::SWITCHER,
+				'label_on' => __( 'Yes', 'essential-addons-for-elementor-lite' ),
+				'label_off' => __( 'No', 'essential-addons-for-elementor-lite' ),
+                'return_value' => 'true',
+                'condition' => [
+                    'eael_show_title'   => 'yes'
+                ]
+			]
+        );
+        
+        $this->add_control(
+			'title_link_target_blank',
+			[
+				'label' => __( 'Target Blank', 'essential-addons-for-elementor-lite' ),
+				'type' => Controls_Manager::SWITCHER,
+				'label_on' => __( 'Yes', 'essential-addons-for-elementor-lite' ),
+				'label_off' => __( 'No', 'essential-addons-for-elementor-lite' ),
+                'return_value' => 'true',
+                'condition' => [
+                    'eael_show_title'   => 'yes'
+                ]
+			]
+        );
+        
+
+        $this->add_control(
+            'read_more_link',
+            [
+                'label' => __('Read More', 'essential-addons-for-elementor-lite'),
+                'type' => Controls_Manager::HEADING,
+                'condition' => [
+                    'eael_show_read_more_button'   => 'yes'
+                ],
+                'separator' => 'before'
+            ]
+        );
+
+        $this->add_control(
+			'read_more_link_nofollow',
+			[
+				'label' => __( 'No Follow', 'essential-addons-for-elementor-lite' ),
+				'type' => Controls_Manager::SWITCHER,
+				'label_on' => __( 'Yes', 'essential-addons-for-elementor-lite' ),
+				'label_off' => __( 'No', 'essential-addons-for-elementor-lite' ),
+                'return_value' => 'true',
+                'condition' => [
+                    'eael_show_read_more_button'   => 'yes'
+                ]
+			]
+        );
+        
+        $this->add_control(
+			'read_more_link_target_blank',
+			[
+				'label' => __( 'Target Blank', 'essential-addons-for-elementor-lite' ),
+				'type' => Controls_Manager::SWITCHER,
+				'label_on' => __( 'Yes', 'essential-addons-for-elementor-lite' ),
+				'label_off' => __( 'No', 'essential-addons-for-elementor-lite' ),
+                'return_value' => 'true',
+                'condition' => [
+                    'eael_show_read_more_button'   => 'yes'
+                ]
+			]
+        );
+
+
+        $this->end_controls_section();
+
+        /**
+         * Grid Style Controls!
+         */
+        $this->start_controls_section(
             'eael_section_post_grid_style',
             [
                 'label' => __('Post Grid Style', 'essential-addons-for-elementor-lite'),
@@ -354,6 +487,8 @@ class Post_Grid extends Widget_Base
 
         $this->end_controls_section();
 
+        $this->terms_style();
+
         $this->start_controls_section(
             'eael_section_hover_card_styles',
             [
@@ -384,7 +519,7 @@ class Post_Grid extends Widget_Base
                 'type' => Controls_Manager::ICONS,
                 'fa4compatibility' => 'eael_post_grid_bg_hover_icon',
                 'default' => [
-                    'value' => 'fa fa-long-arrow-right',
+                    'value' => 'fas fa-long-arrow-alt-right',
                     'library' => 'fa-solid',
                 ],
                 'condition' => [
@@ -484,6 +619,19 @@ class Post_Grid extends Widget_Base
             'excerpt_expanison_indicator' => $settings['excerpt_expanison_indicator'],
             'layout_mode' => $settings['layout_mode'],
             'orderby' => $settings['orderby'],
+            'eael_show_post_terms' => $settings['eael_show_post_terms'],
+            'eael_post_terms' => $settings['eael_post_terms'],
+            'eael_post_terms_max_length' => $settings['eael_post_terms_max_length'],
+            'eael_show_avatar'  => $settings['eael_show_avatar'],
+            'eael_show_author'  => $settings['eael_show_author'],
+            'eael_show_date'    => $settings['eael_show_date'],
+            'title_link_nofollow' => $settings['title_link_nofollow'],
+            'title_link_target_blank' => $settings['title_link_target_blank'],
+            'read_more_link_nofollow' => $settings['read_more_link_nofollow'],
+            'read_more_link_target_blank' => $settings['read_more_link_target_blank'],
+            'image_link_nofollow'   => $settings['image_link_nofollow'],
+            'image_link_target_blank' => $settings['image_link_target_blank'],
+            'eael_title_length' => $settings['eael_title_length']
         ];
 
         $this->add_render_attribute(

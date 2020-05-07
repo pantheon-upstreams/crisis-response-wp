@@ -259,7 +259,6 @@
 .eael-product-grid.eael-product-overlay .woocommerce ul.products li.product .overlay .add_to_cart_button:after,
 .eael-post-grid.eael-product-overlay .woocommerce ul.products li.product .overlay .add_to_cart_button:after {
   content: "\f217";
-  font: normal normal normal 14px/1 FontAwesome;
   font-size: 14px;
   line-height: 38px;
   text-rendering: auto;
@@ -267,6 +266,7 @@
   vertical-align: middle;
   margin: 0;
   padding: 0;
+  font-family: "Font Awesome 5 Free";
 }
 .eael-product-grid.eael-product-overlay .woocommerce ul.products li.product .overlay .add_to_cart_button.loading:before,
 .eael-post-grid.eael-product-overlay .woocommerce ul.products li.product .overlay .add_to_cart_button.loading:before {
@@ -276,7 +276,8 @@
 .eael-post-grid.eael-product-overlay .woocommerce ul.products li.product .overlay .add_to_cart_button.loading:after {
   content: "\f110";
   display: inline-block;
-  font: normal normal normal 14px/1 FontAwesome;
+  font-weight: normal;
+  font-family: "Font Awesome 5 Free";
   font-size: 14px;
   line-height: 38px;
   color: #fff;
@@ -295,7 +296,8 @@
 .eael-product-grid.eael-product-overlay .woocommerce ul.products li.product .overlay .added_to_cart:after,
 .eael-post-grid.eael-product-overlay .woocommerce ul.products li.product .overlay .added_to_cart:after {
   content: "\f06e";
-  font: normal normal normal 14px/1 FontAwesome;
+  font-weight: normal;
+  font-family: "Font Awesome 5 Free";
   font-size: 14px;
   line-height: 38px;
   color: #fff;
