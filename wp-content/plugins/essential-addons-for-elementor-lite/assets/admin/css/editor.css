@@ -20,7 +20,7 @@
 	text-decoration: underline;
 	color: #f54 !important;
 }
-
+.elementor-control .eael-static-product-layout-two-dependency-error,
 .elementor-panel .elementor-control-eael_section_pro .elementor-panel-heading-title.elementor-panel-heading-title,
 .elementor-panel .elementor-control-eael_section_pro .elementor-panel-heading-toggle,
 .elementor-control-data_table_header_colspan_pro_alert .elementor-control-title,
@@ -42,7 +42,8 @@
 .elementor-control-eael_img_accordion_type_pro_alert .elementor-control-title,
 .elementor-control-eael_ticker_type_pro_alert .elementor-control-title,
 .elementor-control-eael_event_calendar_pro_enable_warning .elementor-control-title,
-.elementor-control-eael_team_members_preset_pro_alert .elementor-control-title {
+.elementor-control-eael_team_members_preset_pro_alert .elementor-control-title,
+.elementor-control-eael_woo_checkout_pro_enable_warning .elementor-control-title {
 	color: #f54;
 }
 
@@ -76,7 +77,7 @@
 }
 
 #elementor-panel__editor__help__link[href^="https://essential-addons.com/elementor/docs"]:before {
-	content: "\e92e";
+	content: "\e92f";
 	font-family: "eaicon" !important;
 	font-size: 190%;
 	font-style: normal;
@@ -130,4 +131,7 @@
 }
 .ea-nerd-box .elementor-button.ea-nerd-box-link:hover {
 	background-color: #f22074;
+}
+.elementor-control-ea_woo_checkout_notices_border_color {
+    display: none;
 }

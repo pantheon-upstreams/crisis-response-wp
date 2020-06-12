@@ -45,7 +45,13 @@ trait Elements
             }
 
             if (isset($this->registered_elements[$active_element]['condition'])) {
-                if ($this->registered_elements[$active_element]['condition'][0]($this->registered_elements[$active_element]['condition'][1]) == false) {
+                $check = false;
+
+                if(isset($this->registered_elements[$active_element]['condition'][2])) {
+                    $check = $this->registered_elements[$active_element]['condition'][2];
+                }
+
+                if ($this->registered_elements[$active_element]['condition'][0]($this->registered_elements[$active_element]['condition'][1]) == $check) {
                     continue;
                 }
             }
@@ -335,8 +341,9 @@ trait Elements
                 $html .= $reading_progress_html;
             }
 
-            // Table of Content
-            if ($this->get_settings('eael-table-of-content') == true) {
+            // Table of Contents
+            $elementor_page = \Elementor\Plugin::$instance->db->is_built_with_elementor( get_the_ID() );
+            if ($this->get_settings('eael-table-of-content') == true && $elementor_page === true) {
                 if ($page_settings_model->get_settings('eael_ext_table_of_content') == 'yes' || isset($global_settings['eael_ext_table_of_content']['enabled'])) {
                     add_filter('eael/section/after_render', function ($extensions) {
                         $extensions[] = 'eael-table-of-content';
@@ -358,6 +365,7 @@ trait Elements
                     $close_bt_text_style = $this->eael_get_extension_settings($page_settings_model, $global_settings, 'eael_ext_table_of_content', 'eael_ext_toc_close_button_text_style');
                     $box_shadow = $this->eael_get_extension_settings($page_settings_model, $global_settings, 'eael_ext_table_of_content', 'eael_ext_toc_box_shadow');
                     $auto_collapse = $this->eael_get_extension_settings($page_settings_model, $global_settings, 'eael_ext_table_of_content', 'eael_ext_toc_auto_collapse');
+                    $title_to_url = $this->eael_get_extension_settings($page_settings_model, $global_settings, 'eael_ext_table_of_content', 'eael_ext_toc_use_title_in_url');
                     $toc_style = $this->eael_get_extension_settings($page_settings_model, $global_settings, 'eael_ext_table_of_content', 'eael_ext_table_of_content_list_style');
                     $toc_word_wrap = $this->eael_get_extension_settings($page_settings_model, $global_settings, 'eael_ext_table_of_content', 'eael_ext_toc_word_wrap');
                     $toc_collapse = $this->eael_get_extension_settings($page_settings_model, $global_settings, 'eael_ext_table_of_content', 'eael_ext_toc_collapse_sub_heading');
@@ -365,21 +373,27 @@ trait Elements
                     $toc_title = $this->eael_get_extension_settings($page_settings_model, $global_settings, 'eael_ext_table_of_content', 'eael_ext_toc_title');
                     $icon_check = $this->eael_get_extension_settings($page_settings_model, $global_settings, 'eael_ext_table_of_content', 'eael_ext_table_of_content_header_icon');
                     $sticky_scroll = $this->eael_get_extension_settings($page_settings_model, $global_settings, 'eael_ext_table_of_content', 'eael_ext_toc_sticky_scroll');
+                    $hide_mobile = $this->eael_get_extension_settings($page_settings_model, $global_settings, 'eael_ext_table_of_content', 'eael_ext_toc_hide_in_mobile');
+                    $content_selector = $this->eael_get_extension_settings($page_settings_model, $global_settings, 'eael_ext_table_of_content', 'eael_ext_toc_content_selector');
+                    $exclude_selector = $this->eael_get_extension_settings($page_settings_model, $global_settings, 'eael_ext_table_of_content', 'eael_toc_exclude_selector');
 
                     $el_class .= ($position == 'right') ? ' eael-toc-right' : ' ';
                     $el_class .= ($close_bt_text_style == 'bottom_to_top') ? ' eael-bottom-to-top' : ' ';
                     $el_class .= ($auto_collapse == 'yes') ? ' eael-toc-auto-collapse' : ' ';
                     $el_class .= ($box_shadow == 'yes') ? ' eael-box-shadow' : ' ';
+                    $el_class .= ($hide_mobile == 'yes') ? ' eael-toc-mobile-hide' : ' ';
+
                     $toc_style_class = ' eael-toc-list-' . $toc_style;
                     $toc_style_class .= ($toc_collapse == 'yes') ? ' eael-toc-collapse' : ' ';
                     $toc_style_class .= ($list_icon == 'number') ? ' eael-toc-number' : ' eael-toc-bullet';
                     $toc_style_class .= ($toc_word_wrap == 'yes') ? ' eael-toc-word-wrap' : ' ';
+                    $title_url        = ($title_to_url=='yes')?'true':'false';
 
                     if (!empty($icon_check['value'])) {
                         $icon = $icon_check['value'];
                     }
 
-                    $table_of_content_html .= "<div data-eaelTocTag='{$support_tag}' data-stickyScroll='{$sticky_scroll['size']}' id='eael-toc' class='{$el_class} '>
+                    $table_of_content_html .= "<div data-eaelTocTag='{$support_tag}' data-contentSelector='{$content_selector}' data-excludeSelector='{$exclude_selector}' data-stickyScroll='{$sticky_scroll['size']}' data-titleUrl='{$title_url}' id='eael-toc' class='{$el_class} '>
                         <div class='eael-toc-header'>
                                 <span class='eael-toc-close'>×</span>
                                 <h2 class='eael-toc-title'>{$toc_title}</h2>
@@ -409,4 +423,17 @@ trait Elements
             echo $html;
         }
     }
+
+    /**
+     * Register WC Hooks
+     */
+
+	public function register_wc_hooks() {
+
+		if (class_exists( 'WooCommerce' )){
+			wc()->frontend_includes();
+		}
+
+	}
+
 }
