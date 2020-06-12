@@ -95,7 +95,7 @@ blockquote, q {
 }
 
 a:focus {
-  outline: 1px dashed #13aff0;
+  outline: 0;
 }
 
 a:hover, a:active {
@@ -1308,10 +1308,6 @@ iframe,
 object {
   width: 100%;
   max-width: 100%;
-}
-
-.wp-embed-responsive .wp-block-embed .wp-block-embed__wrapper:before {
-  position: absolute;
 }
 
 .alignfull {
