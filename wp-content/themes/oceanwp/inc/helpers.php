@@ -272,7 +272,7 @@ if ( ! function_exists( 'oceanwp_body_classes' ) ) {
 			}
 
 		}
-		
+
 		// Return classes
 		return $classes;
 
@@ -280,6 +280,21 @@ if ( ! function_exists( 'oceanwp_body_classes' ) ) {
 
 	add_filter( 'body_class', 'oceanwp_body_classes' );
 
+}
+
+/**
+ * Backward compatibility
+ *
+ * @since 1.8.3
+ */
+if ( ! function_exists( 'wp_body_open' ) ) {
+
+	/**
+	 * Shim for wp_body_open, ensuring backward compatibility with versions of WordPress older than 5.2.
+	 */
+	function wp_body_open() {
+		do_action( 'wp_body_open' );
+	}
 }
 
 /**
@@ -3420,14 +3435,15 @@ if ( ! function_exists( 'oceanwp_excerpt' ) ) {
 
 	function oceanwp_excerpt( $length = 30 ) {
 		global $post;
+		$output = '';
 
 		// Check for custom excerpt
-		if ( has_excerpt( $post->ID ) ) {
+		if ( isset( $post->ID ) && has_excerpt( $post->ID ) ) {
 			$output = $post->post_excerpt;
 		}
 
 		// No custom excerpt
-		else {
+		elseif ( isset( $post->post_content ) ) {
 
 			// Check for more tag and return content if it exists
 			if ( strpos( $post->post_content, '<!--more-->' ) ) {
